@@ -1,0 +1,34 @@
+clear all
+close all
+clc;
+a = arduino();
+fopen(arduino); 
+   x=linspace(1,100); % der optages 100 samples
+     numcols = 1; %der laves en kollonne med data
+     y = {}; %alt data smides i y
+  for i=1:length(x);    
+    data =fscanf(arduino,'%f'); % '%f' gør at det er decimaler
+       IncomingString = char(data); % den indkomne data laves om til karaterer
+       IncomingString = regexp(IncomingString, '\s*', 'split'); %dataen splittes op med mellemrummer og i kolonner.
+         Heel(i,1)= IncomingString(1,3); %#ok<SAGROW> % jeg har suppressed en fejl %læser i kolonne 3
+         Metatars(i,1)= IncomingString(1,5); %læser i kolonne 5
+         Svang(i,1)= IncomingString(1,7); 
+         Calcaneus(i,1)= IncomingString(1,9);
+end
+    if true
+      % code
+    end
+  fclose(arduino);
+PlotHeel = str2double(Heel); %Omdanner data som er på cell array til double data
+figure(1)
+plot(PlotHeel);
+title('Heel'); xlabel('Samples'); ylabel('Volt');
+PlotMetatars = str2double(Metatars); %Omdanner data som er på cell array til double data
+figure(2)
+plot(PlotMetatars);
+title('Metatars'); xlabel('Samples'); ylabel('Volt');
+PlotSvang = str2double(Svang); %Omdanner data som er på cell array til double data
+figure(3)
+plot(PlotSvang);
+title('Svang'); xlabel('Samples'); ylabel('Volt');
+PlotCalcaneus = str2double(Calcaneus); %Omdanner data som er på cell array til double data
